@@ -1,0 +1,32 @@
+{% extends 'module/layout.html' %}
+{% load md %}
+
+{% block title %}归档{% endblock %}
+{% block content %}
+<div class="mb-5 ml-auto mr-auto mt-20 w-[95%] max-w-[1000px]">
+    <article>
+      <div class="drop-shadow-md bg-white rounded-md p-4 mb-5">
+        <div class="flex items-center">
+            <span class="icon-[mdi-light--chevron-right] text-2xl text-icon"></span>
+            <span>标签</span>
+        </div>
+      </div>
+
+      <div class="drop-shadow-md bg-white rounded-md p-4">
+        <ul role="list" class="flex gap-3 flex-wrap">
+            {% for tag in tags %}
+            <li>
+                <a href="{{ tag.id }}">
+                <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">{{ tag.name }} ({{ tag.post_count }})</span>
+                </a>
+            </li> 
+            {% endfor %}
+        </ul>
+        </div>
+    </article>
+
+    <div class="mt-5 flex items-center justify-between">
+    <!-- 翻页 -->
+    </div>
+</div>
+{% endblock %}

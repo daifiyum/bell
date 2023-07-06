@@ -1,0 +1,18 @@
+{% extends 'module/layout.html' %}
+{% load md %}
+{% load desc %}
+
+{% block title %}搜索{% endblock %}
+{% block content %}
+    <!-- 内容 -->
+    <div class="mb-5 ml-auto mr-auto mt-20 w-[95%] max-w-[1000px]">
+        <div class="">
+          {% include 'module/post_list.html' with posts=posts %}
+        </div>
+
+        <!--分页-->
+        <div class="mt-5 flex items-center justify-between">
+          {% include 'module/paginator.html' with posts=posts %}
+        </div>
+    </div>
+{% endblock %}

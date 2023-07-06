@@ -1,0 +1,33 @@
+{% extends 'module/layout.html' %}
+{% load md %}
+
+{% block title %}{{page.title}}{% endblock %}
+{% block content %}
+<div class="mb-5 ml-auto mr-auto mt-20 w-[95%] max-w-[1000px]">
+    <article class="rounded-md overflow-hidden drop-shadow-md bg-white mb-5">
+      <div class="relative p-4">
+        <div class="text-xl font-medium mb-20 text-white">{{ page.title }}</div>
+        <div class="flex items-center gap-3">
+          <img class="w-10 h-10 rounded-full" src="https://www.dnxrzl.com/images/logo.png" alt="">
+          <div class="grow-0 flex flex-col justify-center pr-5 border-gray-200">
+            <div class="text-white">daifiyum</div>
+            <div class="text-white text-xs">Mar 18, 2021</div>
+          </div>
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full -z-10 bg_cover">
+          <img class="w-full h-full object-cover" src="https://img.dnxrzl.com/images/2022/08/18/Pinterest_Download-1.jpg" alt="">
+        </div>
+      </div>
+
+      <div class="prose p-4 max-w-none">
+        {{ page.content|mdc }}
+      </div>
+    </article>
+
+    <div class="drop-shadow-md bg-white rounded-md">
+      <div class="p-4">
+        评论模块
+      </div>
+    </div>
+  </div>
+{% endblock %}

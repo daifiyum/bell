@@ -1,0 +1,27 @@
+<li x-data="{ menu: true }">
+    <a {% if menu.url %}href="{{ menu.url }}"{% endif %} target="{{ menu.target }}" @click="menu = !menu" class="flex w-full items-center gap-x-3 rounded-md px-2 py-3 hover:bg-hover active:bg-active cursor-pointer">
+        <span class="{{ menu.icon }} text-2xl text-icon flex-shrink-0"></span>
+        {{ menu.title }}
+        <div class="grow"></div>
+        {% if menu.get_children %}
+        <span class="icon-[mdi-light--chevron-right] text-2xl text-icon flex-shrink-0"></span>
+        {% endif %}
+    </a>
+    {% if menu.get_children %}
+    <nav x-bind:class="{ 'translate-x-full': menu, 'opacity-0': menu}" class="h-full absolute inset-x-0 top-0 flex flex-col z-[1] bg-white SmoothPageTurn">
+        <div>
+            <div class="bg-white shadow-md flex items-center">
+                <button @click="menu = !menu" class="m-2 rounded-full p-2 leading-compact backdrop-opacity-50 hover:bg-hover active:bg-active">
+                    <span class="icon-[mdi-light--arrow-left] text-2xl text-icon"></span>
+                </button>
+                <div>{{ menu.title }}</div>
+            </div>
+        </div>
+        <ul class="p-2 overflow-y-auto grow-0">
+        {% for child in menu.get_children %}
+            {% include 'module/menu.html' with menu=child %}
+        {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+</li>

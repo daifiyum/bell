@@ -1,0 +1,50 @@
+{% extends 'module/layout.html' %}
+{% load md %}
+
+{% block title %}归档{% endblock %}
+{% block content %}
+<div class="mb-5 ml-auto mr-auto mt-20 w-[95%] max-w-[1000px]">
+    <article>
+      <div class="drop-shadow-md bg-white rounded-md p-4 mb-5">
+        <div class="flex items-center">
+            <span class="icon-[mdi-light--chevron-right] text-2xl text-icon"></span>
+            <span>分类</span>
+        </div>
+      </div>
+
+    <div class="drop-shadow-md bg-white rounded-md p-4">
+        <ul role="list" class="divide-y divide-gray-200">
+            {% for category in categories %}
+            <li>
+                <a href="{{ category.id }}" class="block hover:bg-gray-50">
+                <div class="flex items-center px-4 py-4 sm:px-6">
+                    <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div class="truncate">
+                        <div class="flex">
+                        <div class="flex items-center text-sm text-gray-500 gap-3">
+                            <span class="icon-[mdi-light--note] align-middle text-xl text-icon"></span>
+                            <p>
+                                {{ category.name }} ({{ category.post_count }})
+                            </p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="ml-5 flex-shrink-0">
+                    <svg class="h-5 w-5 text-gray-400" x-description="Heroicon name: mini/chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
+                    </svg>
+                    </div>
+                </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    </article>
+
+    <div class="mt-5 flex items-center justify-between">
+    <!-- 翻页 -->
+    </div>
+</div>
+{% endblock %}

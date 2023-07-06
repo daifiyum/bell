@@ -1,0 +1,40 @@
+{% extends 'module/layout.html' %}
+{% load md %}
+
+{% block title %}归档{% endblock %}
+{% block content %}
+<div class="mb-5 ml-auto mr-auto mt-20 w-[95%] max-w-[1000px]">
+    <article>
+      <div class="drop-shadow-md bg-white rounded-md p-4 mb-5">
+        <div class="flex items-center">
+            <span class="icon-[mdi-light--chevron-right] text-2xl text-icon"></span>
+            <span>归档</span>
+        </div>
+      </div>
+
+    <div class="drop-shadow-md bg-white rounded-md p-4">
+        {% for date in date_list %}
+            <div class="py-4">
+                {{ date|date:"Y" }}
+            </div>
+            {% for post in posts %}
+            {% if post.created_at|date:"Y" == date|date:"Y" %}
+            <div class="relative before:content-[''] before:w-[2px] before:h-[10px] before:bg-slate-400 before:absolute before:left-[25px] after:w-[2px] after:h-[10px] after:bg-slate-400 after:absolute after:left-[25px] after:bottom-0">
+                <a href="/archives/{{ post.id }}" class="flex gap-3 items-center py-[10px] px-[20px] text-gray-500 rounded-md hover:bg-hover active:bg-active ease-out duration-300 before:content-[''] before:w-[12px] before:h-[12px] before:rounded-full before:bg-slate-400 before:scale-50 hover:before:scale-100 before:ease-out before:duration-300 before:shrink-0">
+                    <span class="whitespace-nowrap">{{ post.created_at|date:"m月d日" }}</span>
+                    <span class="inline-block whitespace-nowrap overflow-hidden text-ellipsis">
+                        {{ post.title }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    </article>
+
+    <div class="mt-5 flex items-center justify-between">
+    <!-- 翻页 -->
+    </div>
+</div>
+{% endblock %}

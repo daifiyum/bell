@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="icon" href="data:;">
+  <link rel="stylesheet" href="{% static 'lib/github-markdown-css/github-markdown.css' %}">
+  <link rel="stylesheet" href="{% static 'style/style.css' %}">
+  <link href="https://fonts.loli.net/css?family=Noto+Sans+SC&display=swap" rel="stylesheet" />
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/ionicons/7.1.0/ionicons/ionicons.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href='https://fonts.loli.net/css?family=Open+Sans' rel='stylesheet'>
+</head>
+
+<body class="bg-slate-50">
+  <!-- 结构 -->
+  <div x-data="{ open: true }">
+    <!-- 应用栏 -->
+    <div x-data="{ search: true }" class="fixed inset-x-0 top-0 z-[10] flex items-center shadow-md bg-white">
+      <button @click="open = !open" class="m-2 rounded-full p-2 leading-compact hover:bg-hover active:bg-active">
+        <span class="icon-[mdi-light--menu] text-2xl text-icon"></span>
+      </button>
+      <a href="/" class="text-base">Memories' Blog</a>
+      <div class="grow"></div>
+      <button @click="search = !search, $nextTick(() => { $refs.search.focus() });" class="m-2 rounded-full p-2 leading-compact hover:bg-hover active:bg-active">
+        <span class="icon-[mdi-light--magnify] text-2xl text-icon"></span>
+      </button>
+      {% comment %} <button id="rightsw" class="m-2 rounded-full p-2 leading-compact hover:bg-hover active:bg-active">
+        <span class="icon-[mdi-light--lightbulb-on] text-2xl text-icon"></span>
+      </button> {% endcomment %}
+
+      <!-- 搜索 -->
+      <div x-bind:class="{ 'hidden': search }" class="absolute hidden h-full w-full bg-white md:bg-transparent md:right-0 md:w-1/4">
+        <form class="flex items-center" method="get" action="/search/" role="search">
+          <a @click="search = !search" class="m-2 cursor-pointer rounded-full p-2 leading-compact hover:bg-hover active:bg-active">
+            <span class="icon-[mdi-light--arrow-left] text-2xl text-icon"></span>
+          </a>
+          <input x-ref="search" class="my-2 mr-4 w-full grow rounded-md bg-[#f2f2f2] p-2 shadow-sm outline-none ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500" type="text" placeholder="搜索一下..." name="q" />
+        </form>
+      </div>
+    </div>
+
+    <!-- 抽屉 -->
+    <div x-bind:class="{ '-translate-x-full': open }" class="fixed inset-y-0 z-[30] w-[calc(100%_-_56px);] max-w-[280px] -translate-x-full shadow-md duration-100 ease-in lg:w-[240px] overflow-hidden">
+      <nav class="h-full absolute inset-x-0 top-0 flex flex-col z-[1] bg-white">
+        <div>
+          <div class="bg-white shadow-md flex items-center">
+            <button @click="open = !open" class="m-2 rounded-full p-2 leading-compact backdrop-opacity-50 hover:bg-hover active:bg-active">
+              <span class="icon-[mdi-light--arrow-left] text-2xl text-icon"></span>
+            </button>
+            <div>导航</div>
+          </div>
+
+          <div class="flex items-center shadow-md p-2 m-2 bg-white rounded-md gap-3">
+            <img class="w-10 h-10 rounded-full" src="https://www.dnxrzl.com/images/logo.png" alt="">
+            <span>daifiyum</span>
+          </div>
+        </div>
+        <!--递归菜单-->
+        <ul class="p-2 overflow-y-auto grow-0">
+        {% for menu in menus %}
+            {% include 'module/menu.html' with menu=menu %}
+        {% endfor %}
+        </ul>
+      </nav>
+    </div>
+
+    <!-- 抽屉遮罩 -->
+    <div @click="open = !open" x-bind:class="{ 'invisible opacity-0': open }" class="invisible fixed inset-0 z-[20] bg-[rgba(0,0,0,.4)] opacity-0 duration-100 ease-in"></div>
+  </div>
+
+  <!-- 内容 -->
+  {% block content %}{% endblock %}
+
+  <!-- 页脚 -->
+  <div class="w-full flex flex-col items-center p-10 bg-white gap-3">
+    <div>我的博客</div>
+    <div class="text-gray-500 text-sm">© 2023 DNXRZL 豫ICP备2020034230号</div>
+    <div class="text-gray-500 text-sm">Powered by Halo. Theme MaterialYour by dnxrzl.</div>
+  </div>
+</body>
+
+</html>
