@@ -55,21 +55,21 @@ services:
           # - './volume:/data'
         environment:
             - ZINC_DATA_PATH=/data
-            - ZINC_FIRST_ADMIN_USER=admin # 改动徐改 settings.py
-            - ZINC_FIRST_ADMIN_PASSWORD=1234567890d # 改动徐改 settings.py
+            - ZINC_FIRST_ADMIN_USER=admin # 改动需改 settings.py
+            - ZINC_FIRST_ADMIN_PASSWORD=1234567890d # 改动需改 settings.py
         ports:
             - '4080:4080'
         image: 'public.ecr.aws/zinclabs/zincsearch:latest'
 ```
 
 ```
-如何想要自定义 zincsearch 的账号密码等参数，不要忘记更改项目目录下的 settings.py 配置文件
+如果想要自定义 zincsearch 的账号密码等参数，不要忘记更改项目目录下的 settings.py 配置文件
 settings.py 里的 zincsearch 配置项：
 # zincsearch 搜索引擎配置
 ZINCSEARCH = {
     'user': 'admin', # 账户
     'password': '1234567890d', # 密码
-    'index': 'blog', # 索引数据库目录，默认即可
+    'index': 'blog', # 索引数据库名称，默认即可
     'zinc_host': 'http://localhost:4080', # zincsearch 请求链接
 }
 ```
