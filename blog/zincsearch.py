@@ -39,7 +39,7 @@ def delIndex(id):
 def searchIndex(keys):
     zinc_url = zinc_host + "/api/blog/_search"
     data = {
-        "search_type": "match",
+        "search_type": "matchphrase",
         "query":
         {
             "term": keys

@@ -20,10 +20,10 @@ class Post(models.Model):
         (1, '页面'),
     )
 
-    title = models.CharField(max_length=100, verbose_name="标题")
+    title = models.CharField(max_length=100, verbose_name="标题", null=True)
     slug = models.CharField(max_length=255, null=True, blank=True, verbose_name="别名")
-    content = models.TextField(verbose_name="文章")
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.PROTECT, verbose_name="分类")
+    content = models.TextField(verbose_name="文章", null=True)
+    categories = models.ManyToManyField(Category, verbose_name="分类")
     tags = models.ManyToManyField(Tag, verbose_name="标签")
     is_top = models.BooleanField(default=False, verbose_name="置顶")
     created_at = models.DateTimeField(default=timezone.now, verbose_name="创建时间")
@@ -54,17 +54,4 @@ class Menu(models.Model):
 
     class Meta:
         ordering = ['order']
-    
-# 用户模型
-class UserProfile(models.Model):
-    USER_GENDER_TYPE = (
-        ('male', '男'),
-        ('female', '女'),
-    )
-    
-    owner = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name = '用户')
-    nike_name = models.CharField('昵称', max_length=50, blank=True, default='')
-    birthday = models.DateField('生日', null=True, blank=True)
-    gender = models.CharField('性别', max_length=6, choices=USER_GENDER_TYPE, default='male')
-    address = models.CharField('地址', max_length=100, blank=True, default='')
-    image = models.ImageField(upload_to='images/%Y/%m', default='images/default.png', max_length=100, verbose_name = '用户头像')
+

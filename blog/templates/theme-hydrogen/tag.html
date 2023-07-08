@@ -1,6 +1,5 @@
 {% extends 'module/layout.html' %}
 {% load md %}
-{% load desc %}
 
 {% block title %}归档{% endblock %}
 {% block content %}
@@ -9,20 +8,18 @@
       <div class="drop-shadow-md bg-white rounded-md p-4 mb-5">
         <div class="flex items-center">
             <span class="icon-[mdi-light--chevron-right] text-2xl text-icon"></span>
-            <span>分类</span>
+            <span>标签</span>
         </div>
       </div>
 
     <div class="">
-      {% include 'module/post_list.html' with posts=posts %}
+        {% include 'module/post_list.html' with posts=posts %}
     </div>
     </article>
 
+    <!--分页-->
     <div class="mt-5 flex items-center justify-between">
-      <!--分页-->
-      <div class="mt-5 flex items-center justify-between">
         {% include 'module/paginator.html' with posts=posts %}
-      </div>
     </div>
 </div>
 {% endblock %}
